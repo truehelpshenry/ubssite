@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{ margin:0; background:#f6f7f9; color:#15224c; font-family:'Libre Franklin',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:#c01f30; color:#fff; }
+  @keyframes floaty{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+  /* ---- Responsive (inline styles paint desktop first; these override on small screens) ---- */
+  [data-burger]{ display:none; }
+  @media (max-width:1024px){
+    [data-grid3]{ grid-template-columns:repeat(2,1fr) !important; }
+  }
+  @media (max-width:860px){
+    [data-topbar]{ display:none !important; }
+    [data-desk-nav]{ display:none !important; }
+    [data-burger]{ display:inline-flex !important; }
+    [data-split]{ grid-template-columns:1fr !important; gap:36px !important; }
+    [data-grid3]{ grid-template-columns:1fr !important; }
+    [data-grid2]{ grid-template-columns:1fr !important; }
+    [data-prog]{ grid-template-columns:1fr !important; gap:18px !important; }
+    [data-foot]{ grid-template-columns:1fr 1fr !important; gap:32px !important; }
+    [data-heropad]{ padding:64px 24px 72px !important; }
+    [data-h1]{ font-size:40px !important; }
+    [data-page-h1]{ font-size:38px !important; }
+    [data-sticky]{ position:static !important; }
+    [data-cta]{ flex-direction:column !important; align-items:flex-start !important; }
+    [data-pad]{ padding-left:22px !important; padding-right:22px !important; }
+    [data-sec]{ padding-top:62px !important; padding-bottom:62px !important; }
+    [data-floatcard]{ left:auto !important; right:16px !important; bottom:16px !important; }
+  }
+  @media (max-width:520px){
+    [data-h1]{ font-size:33px !important; }
+    [data-page-h1]{ font-size:30px !important; }
+    [data-foot]{ grid-template-columns:1fr !important; }
+    [data-hsub]{ font-size:16px !important; }
+    [data-herostats]{ gap:20px !important; }
+  }
+  /* Accessibility: visible focus ring + skip link */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{ outline:3px solid #c01f30; outline-offset:2px; border-radius:4px; }
+  .ubs-skip{ position:absolute; left:-9999px; top:8px; z-index:200; background:#15224c; color:#fff; padding:10px 18px; border-radius:8px; font-weight:700; text-decoration:none; font-size:14px; }
+  .ubs-skip:focus{ left:8px; }
+</style>
+<script>
+/* SEO: inject indexable metadata, Open Graph, Twitter Card and JSON-LD structured data into <head> */
+(function(){
+  try{
+    if (document.getElementById('ubs-seo-meta')) return; // guard against re-injection
+    var DOMAIN='https://ubsc.com.ng/';
+    var OG_IMG='https://ubsc.com.ng/wp-content/uploads/2025/10/HOME3-768x1152.jpg';
+    var TITLE='Uyo Business School | Executive Education, MBA+ & Professional Certifications — Uyo, Nigeria';
+    var DESC='Uyo Business School (UBS) is an accredited hybrid business school in Uyo, Akwa Ibom State, Nigeria, offering MBA+, DBA+, COBEC, Computer Marshal (CMA+) and professional certifications that equip entrepreneurs, executives and artisans to lead.';
+    var head=document.head;
+    document.documentElement.lang='en';
+    document.title=TITLE;
+    function add(tag,attrs,text){var e=document.createElement(tag);for(var k in attrs){if(attrs[k]!=null)e.setAttribute(k,attrs[k]);}if(text!=null)e.textContent=text;head.appendChild(e);return e;}
+    function meta(name,content,prop){var a={};a[prop?'property':'name']=name;a.content=content;add('meta',a);}
+    meta('description',DESC);
+    meta('keywords','Uyo Business School, UBS, business school Nigeria, MBA Uyo, MBA+ Nigeria, DBA+, COBEC, Computer Marshal, CMA+, professional certification Akwa Ibom, executive education Nigeria, entrepreneurship training Uyo');
+    meta('author','Uyo Business School');
+    meta('robots','index, follow, max-image-preview:large, max-snippet:-1');
+    meta('theme-color','#15224c');
+    add('link',{rel:'canonical',href:DOMAIN,id:'ubs-seo-meta'});
+    meta('og:type','website',true);
+    meta('og:site_name','Uyo Business School',true);
+    meta('og:title',TITLE,true);
+    meta('og:description',DESC,true);
+    meta('og:url',DOMAIN,true);
+    meta('og:image',OG_IMG,true);
+    meta('og:locale','en_NG',true);
+    meta('twitter:card','summary_large_image');
+    meta('twitter:title',TITLE);
+    meta('twitter:description',DESC);
+    meta('twitter:image',OG_IMG);
+    var ld={
+      "@context":"https://schema.org",
+      "@type":"CollegeOrUniversity",
+      "name":"Uyo Business School",
+      "alternateName":"UBS",
+      "url":DOMAIN,
+      "image":OG_IMG,
+      "description":DESC,
+      "slogan":"Excellence in Service",
+      "email":"contact@ubsc.com.ng",
+      "telephone":"+234 8131 534 196",
+      "foundingLocation":"Uyo, Akwa Ibom State, Nigeria",
+      "address":{"@type":"PostalAddress","streetAddress":"No. 10 Aka Nung Oku Road","addressLocality":"Uyo","addressRegion":"Akwa Ibom State","addressCountry":"NG"},
+      "areaServed":"Nigeria",
+      "knowsAbout":["Business Administration","Entrepreneurship","Management","Professional Certification","Vocational Training"],
+      "hasOfferCatalog":{
+        "@type":"OfferCatalog",
+        "name":"Programmes & Certifications",
+        "itemListElement":[
+          {"@type":"Course","name":"Master of Business Advancement (MBA+)","description":"A flexible, hybrid programme for executives and entrepreneurs seeking to scale their business or career.","provider":{"@type":"CollegeOrUniversity","name":"Uyo Business School","sameAs":DOMAIN}},
+          {"@type":"Course","name":"Doctor of Business Advancement (DBA+)","description":"Advanced research and practice for senior executives, consultants and strategic thinkers.","provider":{"@type":"CollegeOrUniversity","name":"Uyo Business School","sameAs":DOMAIN}},
+          {"@type":"Course","name":"Competency Based Education Certification (COBEC)","description":"Validates practical skills and proficiency across trades and professions for workplace relevance.","provider":{"@type":"CollegeOrUniversity","name":"Uyo Business School","sameAs":DOMAIN}},
+          {"@type":"Course","name":"Computer Marshal (CMA+)","description":"A practical, industry-ready certification in digital, computing and workplace tech skills.","provider":{"@type":"CollegeOrUniversity","name":"Uyo Business School","sameAs":DOMAIN}}
+        ]
+      }
+    };
+    add('script',{type:'application/ld+json'},JSON.stringify(ld));
+
+    // WebSite entity (helps AI engines understand the site as a whole)
+    add('script',{type:'application/ld+json'},JSON.stringify({
+      "@context":"https://schema.org","@type":"WebSite",
+      "name":"Uyo Business School","alternateName":"UBS","url":DOMAIN,
+      "inLanguage":"en-NG","publisher":{"@type":"CollegeOrUniversity","name":"Uyo Business School","url":DOMAIN}
+    }));
+
+    // FAQ structured data — surfaced directly in Google rich results and cited by AI assistants
+    add('script',{type:'application/ld+json'},JSON.stringify({
+      "@context":"https://schema.org","@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"What is Uyo Business School?","acceptedAnswer":{"@type":"Answer","text":"Uyo Business School (UBS) is an accredited hybrid business school in Uyo, Akwa Ibom State, Nigeria. It trains, examines and certifies entrepreneurs, professionals and artisans, offering MBA+, DBA+, COBEC, Computer Marshal (CMA+), Professional Diploma and short-course certifications."}},
+        {"@type":"Question","name":"What programmes and certifications does UBS offer?","acceptedAnswer":{"@type":"Answer","text":"UBS offers the Master of Business Advancement (MBA+), Doctor of Business Advancement (DBA+), Competency Based Education Certification (COBEC), Computer Marshal (CMA+), Professional Diplomas and short courses across business, management, marketing, digital skills, hospitality, real estate and specialised professions."}},
+        {"@type":"Question","name":"Where is Uyo Business School located?","acceptedAnswer":{"@type":"Answer","text":"Uyo Business School is located at No. 10 Aka Nung Oku Road, Uyo, Akwa Ibom State, Nigeria. You can reach the admissions team at contact@ubsc.com.ng or +234 8131 534 196."}},
+        {"@type":"Question","name":"Can I study online at Uyo Business School?","acceptedAnswer":{"@type":"Answer","text":"Yes. UBS is a hybrid institution offering both online and on-campus training, with weekday, weekend and evening schedules to suit working professionals and entrepreneurs."}},
+        {"@type":"Question","name":"How do I register for a course at UBS?","acceptedAnswer":{"@type":"Answer","text":"You can register through the Course Registration form on the UBS website by providing your personal details, preferred course, mode of training and schedule. The admissions team confirms placement and payment details by email within one business day."}}
+      ]
+    }));
+  }catch(e){}
+})();
+</script>
+</helmet>
+
+<div style="min-height:100vh; overflow-x:hidden;">
+
+  <a href="#main-content" class="ubs-skip">Skip to main content</a>
+
+  <!-- ============ TOP BAR ============ -->
+  <div data-topbar="" style="background:#0f1a3a; color:#aeb8d4; font-size:12.5px; letter-spacing:.02em;">
+    <div style="max-width:1200px; margin:0 auto; padding:9px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
+        <span style="display:inline-flex; align-items:center; gap:7px;"><span style="width:5px;height:5px;border-radius:50%;background:#c01f30;display:inline-block;"></span>No. 10 Aka Nung Oku Road, Uyo, Akwa Ibom State</span>
+        <span style="opacity:.85;">contact@ubsc.com.ng</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <span style="color:#dde3f2; font-weight:600;">+234 8131 534 196</span>
+        <span style="opacity:.55;">Excellence in Service</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <nav aria-label="Primary" style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); border-bottom:1px solid #e6e8ef;">
+    <div style="max-width:1200px; margin:0 auto; padding:13px 28px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
+      <button onclick="{{ goHome }}" aria-label="Uyo Business School — home" style="display:flex; align-items:center; gap:13px; background:none; border:none; cursor:pointer; padding:0;">
+        <img src="assets/ubs-logo.jpeg" alt="Uyo Business School crest" style="width:46px; height:46px; object-fit:contain; border-radius:6px;">
+        <span style="text-align:left; line-height:1.05;">
+          <span style="display:block; font-family:'Newsreader',serif; font-size:19px; font-weight:600; color:#15224c; letter-spacing:.01em;">Uyo Business School</span>
+          <span style="display:block; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:#c01f30; font-weight:700; margin-top:2px;">Excellence in Service</span>
+        </span>
+      </button>
+
+      <div data-desk-nav="" style="display:flex; align-items:center; gap:6px;">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+          <button onclick="{{ item.onClick }}" aria-current="{{ item.ariaCurrent }}" style="position:relative; background:none; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:14.5px; font-weight:600; color:#2a3766; padding:9px 14px; letter-spacing:.01em;">
+            {{ item.label }}
+            <sc-if value="{{ item.active }}" hint-placeholder-val="{{ false }}">
+              <span style="position:absolute; left:14px; right:14px; bottom:2px; height:2px; background:#c01f30; border-radius:2px;"></span>
+            </sc-if>
+          </button>
+        </sc-for>
+        <button onclick="{{ goRegister }}" style="margin-left:10px; background:#c01f30; color:#fff; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:14px; font-weight:700; padding:11px 20px; border-radius:8px; box-shadow:0 6px 16px rgba(192,31,48,.28); letter-spacing:.01em;">Register</button>
+      </div>
+
+      <button data-burger="" onclick="{{ toggleMenu }}" aria-label="Toggle menu" style="align-items:center; justify-content:center; width:46px; height:46px; background:#15224c; color:#fff; border:none; border-radius:10px; cursor:pointer; font-size:20px; line-height:1;">
+        <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}"><span>✕</span></sc-if>
+        <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><span>☰</span></sc-if>
+      </button>
+    </div>
+
+    <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff; border-top:1px solid #eceef3; padding:10px 22px 18px;">
+        <div style="display:flex; flex-direction:column;">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+            <button onclick="{{ item.onClick }}" style="text-align:left; background:none; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:16px; font-weight:600; color:#1c2747; padding:14px 4px; border-bottom:1px solid #f1f2f6;">{{ item.label }}</button>
+          </sc-for>
+          <button onclick="{{ goRegister }}" style="margin-top:14px; text-align:center; background:#c01f30; color:#fff; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:15px; font-weight:700; padding:14px 18px; border-radius:9px;">Register</button>
+        </div>
+      </div>
+    </sc-if>
+  </nav>
+
+  <!-- ============ HOME ============ -->
+  <span id="main-content" tabindex="-1"></span>
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+
+    <!-- HERO -->
+    <header style="position:relative; background:radial-gradient(120% 120% at 80% -10%, #21306a 0%, #15224c 45%, #0f1a3a 100%); color:#fff; overflow:hidden;">
+      <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); background-size:64px 64px; opacity:.5; mask-image:radial-gradient(80% 80% at 70% 20%, #000, transparent);"></div>
+      <div style="position:absolute; top:-120px; right:-120px; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(192,31,48,.45), transparent 65%); filter:blur(20px);"></div>
+      <div data-split="" data-heropad="" style="max-width:1200px; margin:0 auto; padding:72px 28px 84px; display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; position:relative;">
+        <div data-reveal="1">
+          <div style="display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); padding:7px 15px; border-radius:100px; font-size:12.5px; font-weight:600; letter-spacing:.05em; color:#dbe2f5;">
+            <span style="width:6px;height:6px;border-radius:50%;background:#3ad27e;display:inline-block;"></span>
+            ACCREDITED · UYO, AKWA IBOM STATE
+          </div>
+          <h1 data-h1="" style="font-family:'Newsreader',serif; font-weight:500; font-size:56px; line-height:1.03; letter-spacing:-.02em; margin:20px 0 0;">Executive education for Nigeria's next generation of <span style="font-style:italic; color:#f2c9ce;">leaders</span>.</h1>
+          <p data-hsub="" style="font-size:18px; line-height:1.6; color:#c4cbe2; max-width:520px; margin:20px 0 0;">MBA+, DBA+ and professional certifications that turn academic theory into real-world enterprise — equipping entrepreneurs, professionals and artisans to lead.</p>
+          <div style="display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;">
+            <button onclick="{{ goPrograms }}" style="background:#c01f30; color:#fff; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:15px; font-weight:700; padding:15px 28px; border-radius:9px; box-shadow:0 12px 30px rgba(192,31,48,.36);">Explore Programmes</button>
+            <button onclick="{{ goRegister }}" style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.22); color:#fff; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:15px; font-weight:600; padding:15px 26px; border-radius:9px;">Register Now →</button>
+          </div>
+          <div data-herostats="" style="display:flex; gap:30px; margin-top:40px; flex-wrap:wrap;">
+            <div><div style="font-family:'Newsreader',serif; font-size:34px; font-weight:600; color:#fff;">75+</div><div style="font-size:12.5px; color:#9aa6cc; letter-spacing:.03em; margin-top:2px;">Partner firms &amp; institutions</div></div>
+            <div style="width:1px; background:rgba(255,255,255,.14);"></div>
+            <div><div style="font-family:'Newsreader',serif; font-size:34px; font-weight:600; color:#fff;">4+</div><div style="font-size:12.5px; color:#9aa6cc; letter-spacing:.03em; margin-top:2px;">Accredited certifications</div></div>
+            <div style="width:1px; background:rgba(255,255,255,.14);"></div>
+            <div><div style="font-family:'Newsreader',serif; font-size:34px; font-weight:600; color:#fff;">Hybrid</div><div style="font-size:12.5px; color:#9aa6cc; letter-spacing:.03em; margin-top:2px;">On-campus &amp; online learning</div></div>
+          </div>
+        </div>
+
+        <div style="position:relative;" data-reveal="1">
+          <div style="position:relative; border-radius:18px; overflow:hidden; aspect-ratio:4/5; background:#0c1530 url(&quot;uploads/1-1c1eac21.jpg&quot;) center/cover no-repeat; box-shadow:0 40px 80px rgba(7,12,30,.55); border:1px solid rgba(255,255,255,.12);">
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(15,26,58,.55), transparent 45%);"></div>
+          </div>
+          <div data-floatcard="" style="position:absolute; left:-26px; bottom:34px; background:#fff; color:#15224c; padding:16px 20px; border-radius:14px; box-shadow:0 24px 50px rgba(7,12,30,.35); display:flex; align-items:center; gap:13px; animation:floaty 6s ease-in-out infinite;">
+            <img src="assets/ubs-logo.jpeg" alt="" style="width:40px; height:40px; object-fit:contain;">
+            <div><div style="font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#c01f30; font-weight:700;">Flagship</div><div style="font-family:'Newsreader',serif; font-size:17px; font-weight:600;">MBA+ Programme</div></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ACCREDITATION STRIP -->
+    <div style="background:#fff; border-bottom:1px solid #ebedf2;">
+      <div style="max-width:1200px; margin:0 auto; padding:26px 28px; display:flex; align-items:center; gap:34px; flex-wrap:wrap; justify-content:space-between;">
+        <span style="font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#8590ad; font-weight:700;">Recognised &amp; accredited by</span>
+        <div style="display:flex; gap:34px; flex-wrap:wrap; align-items:center;">
+          <sc-for list="{{ accreditors }}" as="a" hint-placeholder-count="4">
+            <span style="font-family:'Newsreader',serif; font-size:16px; font-weight:600; color:#3a4570;">{{ a }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT PREVIEW -->
+    <section data-sec="" data-pad="" style="max-width:1200px; margin:0 auto; padding:96px 28px;">
+      <div data-split="" style="display:grid; grid-template-columns:1fr 1.05fr; gap:64px; align-items:center;">
+        <div style="position:relative;" data-reveal="1">
+          <div style="border-radius:16px; overflow:hidden; aspect-ratio:5/4; background:#15224c url(&quot;assets/about-ubs.jpg&quot;) center/cover no-repeat; box-shadow:0 30px 60px rgba(21,34,76,.22);"></div>
+          <div style="position:absolute; right:-22px; top:-22px; width:120px; height:120px; border:2px solid #c01f30; border-radius:14px; z-index:-1;"></div>
+        </div>
+        <div data-reveal="1">
+          <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#c01f30; font-weight:700;">About UBS</div>
+          <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:42px; line-height:1.1; letter-spacing:-.01em; margin:14px 0 0; color:#15224c;">A hybrid institution built for proficiency &amp; impact</h2>
+          <p style="font-size:16.5px; line-height:1.72; color:#46506f; margin:20px 0 0;">Uyo Business School is dedicated to equipping entrepreneurs, professionals and artisans with the practical skills and leadership mindset needed to build successful enterprises and careers. We take academic theory and apply it to real-life situations — molding astute decision-makers and top-notch managers who can navigate uncertainty and lead through change.</p>
+          <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:30px;">
+            <div style="border-left:3px solid #c01f30; padding-left:16px;"><div style="font-family:'Newsreader',serif; font-weight:600; font-size:17px; color:#15224c;">Our Mission</div><p style="font-size:14px; color:#5b657f; line-height:1.6; margin:6px 0 0;">Apply academic theory to real life in training top-notch CEOs and managers for Nigeria's economy.</p></div>
+            <div style="border-left:3px solid #15224c; padding-left:16px;"><div style="font-family:'Newsreader',serif; font-weight:600; font-size:17px; color:#15224c;">Our Vision</div><p style="font-size:14px; color:#5b657f; line-height:1.6; margin:6px 0 0;">A world-class business school developing competent executives and skilled artisans, locally and globally.</p></div>
+          </div>
+          <button onclick="{{ goAbout }}" style="margin-top:30px; background:none; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:15px; font-weight:700; color:#c01f30; padding:0; display:inline-flex; align-items:center; gap:8px;">Read our full story →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAMS SHOWCASE -->
+    <section style="background:#0f1a3a; color:#fff; padding:96px 0;">
+      <div style="max-width:1200px; margin:0 auto; padding:0 28px;">
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;" data-reveal="1">
+          <div>
+            <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#f2c9ce; font-weight:700;">Programmes &amp; Certifications</div>
+            <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:44px; line-height:1.08; letter-spacing:-.01em; margin:14px 0 0;">Pathways for every ambition</h2>
+          </div>
+          <div style="display:flex; align-items:flex-end; gap:24px; flex-wrap:wrap; justify-content:space-between;">
+            <p style="max-width:380px; font-size:15.5px; line-height:1.65; color:#aab4d6; margin:0;">From executive degrees to industry-ready skill certifications — flexible, hybrid and globally benchmarked.</p>
+            <button onclick="{{ goPrograms }}" style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.22); color:#fff; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:14px; font-weight:700; padding:12px 20px; border-radius:8px; white-space:nowrap;">View all programmes <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+
+        <div data-grid3="" style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:48px;" data-reveal="1">
+          <sc-for list="{{ programs }}" as="p" hint-placeholder-count="6">
+            <div style="background:#16244e; border:1px solid rgba(255,255,255,.09); border-radius:16px; padding:28px; display:flex; flex-direction:column; min-height:236px; transition:transform .35s ease, border-color .35s ease;" data-card="1">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <span style="font-family:'Newsreader',serif; font-size:30px; font-weight:600; color:#fff;">{{ p.code }}</span>
+                <span style="width:42px; height:3px; background:#c01f30; border-radius:3px;"></span>
+              </div>
+              <div style="font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:#8d99c2; font-weight:700; margin-top:14px;">{{ p.title }}</div>
+              <p style="font-size:14px; line-height:1.62; color:#b7c0de; margin:12px 0 0; flex:1;">{{ p.blurb }}</p>
+              <button onclick="{{ goPrograms }}" style="margin-top:18px; align-self:flex-start; background:none; border:none; cursor:pointer; color:#f2c9ce; font-family:'Libre Franklin',sans-serif; font-weight:700; font-size:13.5px; padding:0;">Learn more →</button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTTO BAND -->
+    <section data-sec="" data-pad="" style="max-width:1200px; margin:0 auto; padding:90px 28px;">
+      <div data-grid3="" style="display:grid; grid-template-columns:repeat(3,1fr); gap:26px;" data-reveal="1">
+        <sc-for list="{{ pillars }}" as="v" hint-placeholder-count="3">
+          <div style="background:#fff; border:1px solid #ebedf2; border-radius:16px; padding:34px 30px; box-shadow:0 12px 30px rgba(21,34,76,.05);">
+            <div style="width:46px; height:46px; border-radius:11px; background:#15224c; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Newsreader',serif; font-size:22px; font-weight:600;">{{ v.n }}</div>
+            <h3 style="font-family:'Newsreader',serif; font-weight:600; font-size:22px; color:#15224c; margin:18px 0 0;">{{ v.title }}</h3>
+            <p style="font-size:14.5px; line-height:1.65; color:#566077; margin:10px 0 0;">{{ v.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <!-- ============ ABOUT PAGE ============ -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <header style="background:radial-gradient(135% 135% at 78% -20%, #283a82 0%, #182a5f 42%, #0f1a3a 100%); color:#fff; padding:76px 0 84px;">
+      <div style="max-width:1100px; margin:0 auto; padding:0 28px;">
+        <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#f2c9ce; font-weight:700;">About Us</div>
+        <h1 data-page-h1="" style="font-family:'Newsreader',serif; font-weight:600; font-size:50px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; max-width:780px; color:#ffffff; text-wrap:balance;">Taking academic theory and applying it to real life</h1>
+        <p style="font-size:18px; line-height:1.62; color:#c4cbe2; max-width:680px; margin:20px 0 0;">A hybrid institution of higher learning with the mandate to train, examine and certify entrepreneurs and artisans for proficiency and cognitive manpower development.</p>
+      </div>
+    </header>
+
+    <section data-sec="" data-pad="" style="max-width:1100px; margin:0 auto; padding:80px 28px 40px;">
+      <div data-split="" style="display:grid; grid-template-columns:1.4fr 1fr; gap:56px; align-items:start;" data-reveal="1">
+        <div>
+          <p style="font-size:16.5px; line-height:1.78; color:#39425f; margin:0;">Uyo Business School has acquired all the necessary certifications that safeguard its existence and operations as a legitimate educational institution, with business premises in Uyo, the Akwa Ibom State capital. It is currently an accredited body for the training and examination of <strong style="color:#15224c;">Computer Marshal</strong> candidates for the award of the CMA+ certification.</p>
+          <p style="font-size:16.5px; line-height:1.78; color:#39425f; margin:20px 0 0;">In partnership with a federal-government-licensed Recruiter Agency, the school gained approval through the Ministry of Education to train artisans and entrepreneurs across various trades and convert their skills into <strong style="color:#15224c;">Competency Based Education Certification (COBEC)</strong> — forming a Business Data Bank of competent professionals available to industries and government parastatals in need of a capable labour force.</p>
+          <p style="font-size:16.5px; line-height:1.78; color:#39425f; margin:20px 0 0;">We mold and craft people into astute decision-makers, business professionals and top-notch managers who can readily navigate business uncertainties. To this end, the school designed the globally recognised <strong style="color:#15224c;">Master of Business Advancement (MBA+)</strong> — a registered trademark of Uyo Business School through the Federal Ministry of Trade and Industry.</p>
+        </div>
+        <div data-sticky="" style="position:sticky; top:96px;">
+          <div style="border-radius:16px; overflow:hidden; aspect-ratio:4/5; background:#15224c url(&quot;assets/about-campus.jpg&quot;) center/cover no-repeat; box-shadow:0 30px 60px rgba(21,34,76,.22);"></div>
+          <div style="background:#c01f30; color:#fff; border-radius:14px; padding:22px 24px; margin-top:18px;">
+            <div style="font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.85; font-weight:700;">Our Watchword</div>
+            <div style="font-family:'Newsreader',serif; font-size:28px; font-weight:600; margin-top:4px;">Excellence in Service</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1100px; margin:0 auto; padding:30px 28px 40px;">
+      <div data-grid3="" style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;" data-reveal="1">
+        <sc-for list="{{ pillars }}" as="v" hint-placeholder-count="3">
+          <div style="background:#fff; border:1px solid #ebedf2; border-radius:16px; padding:30px; box-shadow:0 12px 30px rgba(21,34,76,.05);">
+            <div style="width:44px; height:44px; border-radius:11px; background:#15224c; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Newsreader',serif; font-size:20px; font-weight:600;">{{ v.n }}</div>
+            <h3 style="font-family:'Newsreader',serif; font-weight:600; font-size:21px; color:#15224c; margin:16px 0 0;">{{ v.title }}</h3>
+            <p style="font-size:14.5px; line-height:1.65; color:#566077; margin:10px 0 0;">{{ v.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1100px; margin:0 auto; padding:50px 28px 90px;">
+      <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:34px; color:#15224c; margin:0 0 28px;" data-reveal="1">What underpins our credibility</h2>
+      <div data-grid3="" style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;" data-reveal="1">
+        <sc-for list="{{ credibility }}" as="c" hint-placeholder-count="3">
+          <div style="background:#fff; border:1px solid #ebedf2; border-top:3px solid #c01f30; border-radius:0 0 14px 14px; padding:26px;">
+            <h3 style="font-family:'Newsreader',serif; font-weight:600; font-size:20px; color:#15224c; margin:0;">{{ c.title }}</h3>
+            <p style="font-size:14px; line-height:1.66; color:#566077; margin:12px 0 0;">{{ c.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ PROGRAMS PAGE ============ -->
+  <sc-if value="{{ isPrograms }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <header style="background:radial-gradient(135% 135% at 78% -20%, #283a82 0%, #182a5f 42%, #0f1a3a 100%); color:#fff; padding:76px 0 84px;">
+      <div style="max-width:1100px; margin:0 auto; padding:0 28px;">
+        <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#f2c9ce; font-weight:700;">Programmes &amp; Certifications</div>
+        <h1 data-page-h1="" style="font-family:'Newsreader',serif; font-weight:600; font-size:50px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; max-width:780px; color:#ffffff; text-wrap:balance;">Flexible, hybrid, globally benchmarked</h1>
+        <p style="font-size:18px; line-height:1.62; color:#c4cbe2; max-width:680px; margin:20px 0 0;">Executive degrees and industry-ready certifications designed to meet the standards of the best business schools worldwide.</p>
+      </div>
+    </header>
+
+    <section style="max-width:1000px; margin:0 auto; padding:70px 28px 40px;">
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <sc-for list="{{ programs }}" as="p" hint-placeholder-count="6">
+          <div data-prog="" style="background:#fff; border:1px solid #ebedf2; border-radius:16px; padding:32px; display:grid; grid-template-columns:200px 1fr; gap:32px; align-items:center; box-shadow:0 12px 30px rgba(21,34,76,.05);" data-reveal="1">
+            <div style="background:#15224c; border-radius:12px; padding:24px; text-align:center;">
+              <div style="font-family:'Newsreader',serif; font-size:38px; font-weight:600; color:#fff; line-height:1;">{{ p.code }}</div>
+              <div style="width:40px; height:3px; background:#c01f30; border-radius:3px; margin:14px auto 0;"></div>
+            </div>
+            <div>
+              <h3 style="font-family:'Newsreader',serif; font-weight:600; font-size:24px; color:#15224c; margin:0;">{{ p.title }}</h3>
+              <p style="font-size:15px; line-height:1.7; color:#46506f; margin:12px 0 0;">{{ p.long }}</p>
+              <button onclick="{{ goRegister }}" style="display:inline-flex; align-items:center; margin-top:16px; background:none; border:none; cursor:pointer; color:#c01f30; font-family:'Libre Franklin',sans-serif; font-weight:700; font-size:14px; padding:0;">Register for {{ p.code }} →</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ FACULTY PAGE ============ -->
+  <sc-if value="{{ isFaculty }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <header style="background:radial-gradient(135% 135% at 78% -20%, #283a82 0%, #182a5f 42%, #0f1a3a 100%); color:#fff; padding:76px 0 84px;">
+      <div style="max-width:1100px; margin:0 auto; padding:0 28px;">
+        <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#f2c9ce; font-weight:700;">Resource Persons</div>
+        <h1 data-page-h1="" style="font-family:'Newsreader',serif; font-weight:600; font-size:50px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; max-width:780px; color:#ffffff; text-wrap:balance;">Practitioners and scholars who teach by example</h1>
+        <p style="font-size:18px; line-height:1.62; color:#c4cbe2; max-width:680px; margin:20px 0 0;">Our faculty pairs deep academic credentials with real-world enterprise experience across business, law, development and administration.</p>
+      </div>
+    </header>
+
+    <section data-sec="" data-pad="" style="max-width:1140px; margin:0 auto; padding:74px 28px 50px;">
+      <div data-grid3="" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+        <sc-for list="{{ faculty }}" as="f" hint-placeholder-count="6">
+          <div style="background:#fff; border:1px solid #ebedf2; border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(21,34,76,.05); display:flex; flex-direction:column;" data-reveal="1">
+            <div style="aspect-ratio:1/1; background:#15224c center/cover no-repeat; background-image:linear-gradient(180deg, rgba(15,26,58,0), rgba(15,26,58,.35)), url('{{ f.img }}');"></div>
+            <div style="padding:24px 24px 28px;">
+              <h3 style="font-family:'Newsreader',serif; font-weight:600; font-size:21px; color:#15224c; margin:0; line-height:1.2;">{{ f.name }}</h3>
+              <div style="font-size:12.5px; letter-spacing:.02em; color:#c01f30; font-weight:700; margin:8px 0 0;">{{ f.creds }}</div>
+              <p style="font-size:14px; line-height:1.66; color:#566077; margin:13px 0 0;">{{ f.focus }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ CONTACT PAGE ============ -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <header style="background:radial-gradient(135% 135% at 78% -20%, #283a82 0%, #182a5f 42%, #0f1a3a 100%); color:#fff; padding:76px 0 84px;">
+      <div style="max-width:1100px; margin:0 auto; padding:0 28px;">
+        <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#f2c9ce; font-weight:700;">Contact Us</div>
+        <h1 data-page-h1="" style="font-family:'Newsreader',serif; font-weight:600; font-size:50px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; max-width:780px; color:#ffffff; text-wrap:balance;">Let's talk about your next chapter</h1>
+        <p style="font-size:18px; line-height:1.62; color:#c4cbe2; max-width:640px; margin:20px 0 0;">Reach the admissions team for programme enquiries, partnerships, consultancy or campus visits.</p>
+      </div>
+    </header>
+
+    <section data-sec="" data-pad="" style="max-width:1100px; margin:0 auto; padding:74px 28px 60px;">
+      <div data-split="" style="display:grid; grid-template-columns:1fr 1.25fr; gap:48px; align-items:start;">
+        <div data-reveal="1">
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div style="background:#fff; border:1px solid #ebedf2; border-left:3px solid #c01f30; border-radius:0 14px 14px 0; padding:22px 24px;">
+              <div style="font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:#8590ad; font-weight:700;">Main Office</div>
+              <div style="font-size:15.5px; line-height:1.6; color:#28335a; font-weight:600; margin-top:7px;">No. 10 Aka Nung Oku Road,<br>Uyo, Akwa Ibom State, Nigeria.</div>
+            </div>
+            <div style="background:#fff; border:1px solid #ebedf2; border-left:3px solid #c01f30; border-radius:0 14px 14px 0; padding:22px 24px;">
+              <div style="font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:#8590ad; font-weight:700;">Phone</div>
+              <div style="font-size:15.5px; line-height:1.7; color:#28335a; font-weight:600; margin-top:7px;">+234 8131 534 196<br>02085291234</div>
+            </div>
+            <div style="background:#fff; border:1px solid #ebedf2; border-left:3px solid #c01f30; border-radius:0 14px 14px 0; padding:22px 24px;">
+              <div style="font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:#8590ad; font-weight:700;">Email</div>
+              <a href="mailto:contact@ubsc.com.ng" style="font-size:15.5px; color:#c01f30; font-weight:600; margin-top:7px; display:inline-block; text-decoration:none;">contact@ubsc.com.ng</a>
+            </div>
+          </div>
+          <div style="margin-top:18px; background:#0f1a3a; color:#aeb8d4; border-radius:14px; padding:22px 24px;">
+            <div style="font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:#fff; font-weight:700;">Office Hours</div>
+            <div style="font-size:14.5px; line-height:1.8; margin-top:8px;">Monday – Friday · 8:00am – 5:00pm<br>Saturday · 9:00am – 2:00pm</div>
+          </div>
+        </div>
+
+        <div style="background:#fff; border:1px solid #ebedf2; border-radius:18px; padding:36px; box-shadow:0 18px 44px rgba(21,34,76,.08);" data-reveal="1">
+          <h2 style="font-family:'Newsreader',serif; font-weight:600; font-size:26px; color:#15224c; margin:0;">Send us a message</h2>
+          <p style="font-size:14px; color:#6b7493; margin:8px 0 24px;">We typically respond within one business day.</p>
+          <form onsubmit="{{ onSubmit }}">
+            <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Full name</span><input required="{{ isTrue }}" name="name" type="text" placeholder="Your name" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+              <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Email</span><input required="{{ isTrue }}" name="email" type="email" placeholder="you@email.com" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+            </div>
+            <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;">
+              <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Phone</span><input type="tel" name="phone" placeholder="+234 …" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+              <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Programme of interest</span><select name="programme" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"><option>MBA+</option><option>DBA+</option><option>COBEC</option><option>CMA+</option><option>Professional Diploma</option><option>Short Course</option></select></label>
+            </div>
+            <label style="display:block; margin-top:16px;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Message</span><textarea required="{{ isTrue }}" name="message" rows="4" placeholder="How can we help?" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd; resize:vertical;"></textarea></label>
+            <button type="submit" style="margin-top:22px; background:#c01f30; color:#fff; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:15px; font-weight:700; padding:14px 28px; border-radius:9px; box-shadow:0 10px 26px rgba(192,31,48,.28);">Send message</button>
+            <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+              <span style="display:inline-block; margin-left:16px; font-size:14px; font-weight:600; color:#1c7a4a;">✓ Thank you — we'll be in touch shortly.</span>
+            </sc-if>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ COURSE REGISTRATION PAGE ============ -->
+  <sc-if value="{{ isRegister }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <header style="background:radial-gradient(135% 135% at 78% -20%, #283a82 0%, #182a5f 42%, #0f1a3a 100%); color:#fff; padding:76px 0 84px;">
+      <div style="max-width:900px; margin:0 auto; padding:0 28px;">
+        <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#f2c9ce; font-weight:700;">Course Registration</div>
+        <h1 data-page-h1="" style="font-family:'Newsreader',serif; font-weight:600; font-size:50px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; max-width:780px; color:#ffffff; text-wrap:balance;">Enrol in a UBS course</h1>
+        <p style="font-size:18px; line-height:1.62; color:#c4cbe2; max-width:640px; margin:20px 0 0;">Complete the form below to register. Fields marked <span style="color:#f2c9ce;">*</span> are required — our admissions team will confirm your placement and payment details by email.</p>
+      </div>
+    </header>
+
+    <section data-sec="" data-pad="" style="max-width:900px; margin:0 auto; padding:64px 28px 64px;">
+      <sc-if value="{{ regSent }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff; border:1px solid #ebedf2; border-top:4px solid #1c7a4a; border-radius:16px; padding:48px 40px; text-align:center; box-shadow:0 18px 44px rgba(21,34,76,.08);" data-reveal="1">
+          <div style="width:64px; height:64px; border-radius:50%; background:#e8f6ee; color:#1c7a4a; display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto;">✓</div>
+          <h2 style="font-family:'Newsreader',serif; font-weight:600; font-size:30px; color:#15224c; margin:22px 0 0;">Registration received</h2>
+          <p style="font-size:16px; line-height:1.7; color:#46506f; max-width:520px; margin:14px auto 0;">Thank you for registering with Uyo Business School. Our admissions team will contact you within one business day to confirm your course placement and next steps.</p>
+          <button onclick="{{ goHome }}" style="margin-top:28px; background:#15224c; color:#fff; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:15px; font-weight:700; padding:14px 28px; border-radius:9px;">Back to home</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ regNotSent }}" hint-placeholder-val="{{ true }}">
+      <form onsubmit="{{ onRegSubmit }}">
+
+        <!-- SECTION A -->
+        <div style="background:#fff; border:1px solid #ebedf2; border-radius:18px; padding:32px; box-shadow:0 12px 30px rgba(21,34,76,.05);" data-reveal="1">
+          <div style="display:flex; align-items:center; gap:13px; padding-bottom:18px; border-bottom:1px solid #eef0f4;">
+            <span style="width:34px; height:34px; border-radius:9px; background:#15224c; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Newsreader',serif; font-size:17px; font-weight:600;">A</span>
+            <h2 style="font-family:'Newsreader',serif; font-weight:600; font-size:21px; color:#15224c; margin:0;">Personal Information</h2>
+          </div>
+          <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px;">
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Full Name <span style="color:#c01f30;">*</span></span><input required="{{ isTrue }}" type="text" name="fullName" placeholder="Your full name" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Date of Birth <span style="color:#c01f30;">*</span></span><input required="{{ isTrue }}" type="date" name="dob" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+          </div>
+          <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;">
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Email Address <span style="color:#c01f30;">*</span></span><input required="{{ isTrue }}" type="email" name="email" placeholder="you@email.com" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Phone Number <span style="color:#c01f30;">*</span></span><input required="{{ isTrue }}" type="tel" name="phone" placeholder="+234 …" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+          </div>
+          <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;">
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">WhatsApp Number</span><input type="tel" name="whatsapp" placeholder="+234 …" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+            <div>
+              <span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Gender <span style="color:#c01f30;">*</span></span>
+              <div style="display:flex; gap:10px;">
+                <label style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:11px 14px; border:1px solid #d9dde6; border-radius:9px; cursor:pointer; font-size:14px; color:#28335a; background:#fbfbfd;"><input required="{{ isTrue }}" type="radio" name="gender" value="Male" style="accent-color:#c01f30;"> Male</label>
+                <label style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:11px 14px; border:1px solid #d9dde6; border-radius:9px; cursor:pointer; font-size:14px; color:#28335a; background:#fbfbfd;"><input type="radio" name="gender" value="Female" style="accent-color:#c01f30;"> Female</label>
+              </div>
+            </div>
+          </div>
+          <label style="display:block; margin-top:16px;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Residential Address</span><textarea rows="2" name="address" placeholder="Street, city, state" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd; resize:vertical;"></textarea></label>
+        </div>
+
+        <!-- SECTION B -->
+        <div style="background:#fff; border:1px solid #ebedf2; border-radius:18px; padding:32px; box-shadow:0 12px 30px rgba(21,34,76,.05); margin-top:22px;" data-reveal="1">
+          <div style="display:flex; align-items:center; gap:13px; padding-bottom:18px; border-bottom:1px solid #eef0f4;">
+            <span style="width:34px; height:34px; border-radius:9px; background:#15224c; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Newsreader',serif; font-size:17px; font-weight:600;">B</span>
+            <h2 style="font-family:'Newsreader',serif; font-weight:600; font-size:21px; color:#15224c; margin:0;">Course Selection</h2>
+          </div>
+          <label style="display:block; margin-top:22px;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Preferred Course <span style="color:#c01f30;">*</span></span>
+            <select required="{{ isTrue }}" name="course" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;">
+              <option value="" disabled="" selected="">Select a course…</option>
+              <optgroup label="Business &amp; Management">
+                <option>Business Consulting</option>
+                <option>Small Business Management</option>
+                <option>Business Negotiation</option>
+                <option>Project Management</option>
+                <option>Procurement Management</option>
+                <option>Organizational Leadership</option>
+                <option>Financial Management</option>
+                <option>Business Accounting</option>
+                <option>Banking and Financing</option>
+                <option>Contract Management</option>
+                <option>Costing and Quotation</option>
+                <option>Job Quotation</option>
+              </optgroup>
+              <optgroup label="Marketing, Branding &amp; Digital Skills">
+                <option>Business Marketing</option>
+                <option>Digital Marketing</option>
+                <option>Social Media Management</option>
+                <option>Digital Entrepreneurship</option>
+                <option>AI Prompt Engineering</option>
+                <option>Website Development</option>
+              </optgroup>
+              <optgroup label="Hospitality, Events &amp; Tourism">
+                <option>Event Management</option>
+                <option>Hotel Management</option>
+                <option>Tourism Promotion</option>
+                <option>Customer Service Delivery</option>
+              </optgroup>
+              <optgroup label="Real Estate, Logistics &amp; Environment">
+                <option>Real Estate Management</option>
+                <option>Clearing and Forwarding</option>
+                <option>Solid Waste Management</option>
+              </optgroup>
+              <optgroup label="Religious &amp; Nonprofit Development">
+                <option>Church Planting and Financing</option>
+              </optgroup>
+              <optgroup label="Specialized &amp; Professional Courses">
+                <option>Design Thinking</option>
+                <option>Forensic Accounting</option>
+              </optgroup>
+              <option>Other</option>
+            </select>
+          </label>
+          <label style="display:block; margin-top:16px;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">If Other, please specify</span><input type="text" name="courseOther" placeholder="Course name" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+          <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;">
+            <div>
+              <span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Mode of Training <span style="color:#c01f30;">*</span></span>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <label style="display:inline-flex; align-items:center; gap:9px; padding:11px 14px; border:1px solid #d9dde6; border-radius:9px; cursor:pointer; font-size:14px; color:#28335a; background:#fbfbfd;"><input required="{{ isTrue }}" type="radio" name="mode" value="Online" style="accent-color:#c01f30;"> Online</label>
+                <label style="display:inline-flex; align-items:center; gap:9px; padding:11px 14px; border:1px solid #d9dde6; border-radius:9px; cursor:pointer; font-size:14px; color:#28335a; background:#fbfbfd;"><input type="radio" name="mode" value="Physical" style="accent-color:#c01f30;"> Physical (UBS Campus)</label>
+              </div>
+            </div>
+            <div>
+              <span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Training Schedule <span style="color:#c01f30;">*</span></span>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <label style="display:inline-flex; align-items:center; gap:9px; padding:11px 14px; border:1px solid #d9dde6; border-radius:9px; cursor:pointer; font-size:14px; color:#28335a; background:#fbfbfd;"><input required="{{ isTrue }}" type="radio" name="schedule" value="Weekdays" style="accent-color:#c01f30;"> Weekdays</label>
+                <label style="display:inline-flex; align-items:center; gap:9px; padding:11px 14px; border:1px solid #d9dde6; border-radius:9px; cursor:pointer; font-size:14px; color:#28335a; background:#fbfbfd;"><input type="radio" name="schedule" value="Weekends" style="accent-color:#c01f30;"> Weekends</label>
+                <label style="display:inline-flex; align-items:center; gap:9px; padding:11px 14px; border:1px solid #d9dde6; border-radius:9px; cursor:pointer; font-size:14px; color:#28335a; background:#fbfbfd;"><input type="radio" name="schedule" value="Evening Sessions" style="accent-color:#c01f30;"> Evening Sessions</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION C -->
+        <div style="background:#fff; border:1px solid #ebedf2; border-radius:18px; padding:32px; box-shadow:0 12px 30px rgba(21,34,76,.05); margin-top:22px;" data-reveal="1">
+          <div style="display:flex; align-items:center; gap:13px; padding-bottom:18px; border-bottom:1px solid #eef0f4;">
+            <span style="width:34px; height:34px; border-radius:9px; background:#15224c; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Newsreader',serif; font-size:17px; font-weight:600;">C</span>
+            <h2 style="font-family:'Newsreader',serif; font-weight:600; font-size:21px; color:#15224c; margin:0;">Academic &amp; Work Background</h2>
+          </div>
+          <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px;">
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Highest Qualification</span><input type="text" name="qualification" placeholder="e.g. B.Sc, HND, SSCE" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Current Occupation</span><input type="text" name="occupation" placeholder="Your role / business" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+          </div>
+          <label style="display:block; margin-top:16px;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Work Experience <span style="color:#9aa3ba; font-weight:500;">(optional)</span></span><textarea rows="2" name="experience" placeholder="Briefly describe your relevant experience" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd; resize:vertical;"></textarea></label>
+        </div>
+
+        <!-- SECTION D -->
+        <div style="background:#fff; border:1px solid #ebedf2; border-radius:18px; padding:32px; box-shadow:0 12px 30px rgba(21,34,76,.05); margin-top:22px;" data-reveal="1">
+          <div style="display:flex; align-items:center; gap:13px; padding-bottom:18px; border-bottom:1px solid #eef0f4;">
+            <span style="width:34px; height:34px; border-radius:9px; background:#15224c; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Newsreader',serif; font-size:17px; font-weight:600;">D</span>
+            <h2 style="font-family:'Newsreader',serif; font-weight:600; font-size:21px; color:#15224c; margin:0;">Emergency Contact</h2>
+          </div>
+          <div data-grid2="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px;">
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Full Name</span><input type="text" name="emName" placeholder="Contact's full name" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+            <label style="display:block;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Relationship</span><input type="text" name="emRelationship" placeholder="e.g. Parent, Spouse" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+          </div>
+          <label style="display:block; margin-top:16px;"><span style="display:block; font-size:12.5px; font-weight:600; color:#3a4570; margin-bottom:6px;">Emergency Phone Number</span><input type="tel" name="emPhone" placeholder="+234 …" style="width:100%; font-family:'Libre Franklin',sans-serif; font-size:14.5px; padding:12px 14px; border:1px solid #d9dde6; border-radius:9px; color:#15224c; background:#fbfbfd;"></label>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:18px; margin-top:26px; flex-wrap:wrap;">
+          <button type="submit" style="background:#c01f30; color:#fff; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-size:15.5px; font-weight:700; padding:16px 36px; border-radius:10px; box-shadow:0 12px 30px rgba(192,31,48,.3);">Submit Registration</button>
+          <span style="font-size:13.5px; color:#6b7493;">We'll confirm your placement by email within one business day.</span>
+        </div>
+      </form>
+      </sc-if>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ MEDIA & GALLERY PAGE ============ -->
+  <sc-if value="{{ isGallery }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <header style="background:radial-gradient(135% 135% at 78% -20%, #283a82 0%, #182a5f 42%, #0f1a3a 100%); color:#fff; padding:76px 0 84px;">
+      <div style="max-width:1140px; margin:0 auto; padding:0 28px;">
+        <div style="font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#f2c9ce; font-weight:700;">Media &amp; Gallery</div>
+        <h1 data-page-h1="" style="font-family:'Newsreader',serif; font-weight:600; font-size:50px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; max-width:780px; color:#ffffff; text-wrap:balance;">Moments from the UBS community</h1>
+        <p style="font-size:18px; line-height:1.62; color:#c4cbe2; max-width:660px; margin:20px 0 0;">Highlights from the 2026 Business Sit-Out — <em style="color:#f2c9ce; font-style:italic;">Investment Planning in a Changing Economy</em> — plus convocations and campus life at Uyo Business School. Click any photo to view it larger.</p>
+      </div>
+    </header>
+
+    <section data-sec="" data-pad="" style="max-width:1140px; margin:0 auto; padding:70px 28px 64px;">
+      <sc-for list="{{ galleryGroups }}" as="grp" hint-placeholder-count="2">
+        <div style="margin-bottom:54px;" data-reveal="1">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; padding-bottom:16px; border-bottom:1px solid #e7e9f0; margin-bottom:24px;">
+            <h2 style="font-family:'Newsreader',serif; font-weight:600; font-size:27px; color:#15224c; margin:0;">{{ grp.title }}</h2>
+            <span style="font-size:13.5px; color:#8590ad; font-weight:600; letter-spacing:.02em;">{{ grp.note }}</span>
+          </div>
+          <div data-grid3="" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+            <sc-for list="{{ grp.items }}" as="g" hint-placeholder-count="6">
+              <figure style="margin:0; position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3; box-shadow:0 12px 30px rgba(21,34,76,.08); cursor:pointer; background:#15224c;" onclick="{{ g.onClick }}" data-tile="1">
+                {{ g.img }}
+                <figcaption style="position:absolute; left:0; right:0; bottom:0; padding:30px 16px 12px; color:#fff; font-size:13.5px; font-weight:600; letter-spacing:.01em; background:linear-gradient(to top, rgba(12,18,42,.78), transparent);">{{ g.cap }}</figcaption>
+              </figure>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ LIGHTBOX (gallery) ============ -->
+  <sc-if value="{{ hasLightbox }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeLightbox }}" style="position:fixed; inset:0; z-index:120; background:rgba(8,12,28,.88); display:flex; align-items:center; justify-content:center; padding:32px; cursor:zoom-out;">
+      {{ lightboxImg }}
+      <button onclick="{{ closeLightbox }}" aria-label="Close" style="position:absolute; top:22px; right:26px; width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.3); cursor:pointer; font-size:22px; line-height:1;">✕</button>
+    </div>
+  </sc-if>
+
+  <!-- ============ CTA BAND (all pages) ============ -->
+  <section style="background:#c01f30; color:#fff; position:relative; overflow:hidden;">
+    <div style="position:absolute; inset:0; background-image:radial-gradient(circle at 15% 120%, rgba(255,255,255,.16), transparent 40%);"></div>
+    <div data-cta="" style="max-width:1100px; margin:0 auto; padding:66px 28px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap; position:relative;">
+      <div>
+        <h2 style="font-family:'Newsreader',serif; font-weight:500; font-size:38px; line-height:1.1; margin:0; max-width:620px;">Register for our exclusive leadership and business programmes</h2>
+        <p style="font-size:16px; color:#fbe1e4; margin:14px 0 0;">Unlock expert insight and a network of 75+ partner firms across Nigeria.</p>
+      </div>
+      <button onclick="{{ goRegister }}" style="background:#fff; color:#c01f30; border:none; cursor:pointer; font-family:'Libre Franklin',sans-serif; font-weight:700; font-size:15.5px; padding:17px 32px; border-radius:10px; box-shadow:0 16px 36px rgba(0,0,0,.18); white-space:nowrap;">Course Registration →</button>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0c1530; color:#aeb8d4; padding:64px 0 30px;">
+    <div data-foot="" data-pad="" style="max-width:1200px; margin:0 auto; padding:0 28px; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:42px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="assets/ubs-logo.jpeg" alt="" style="width:44px; height:44px; object-fit:contain; border-radius:6px;">
+          <span style="font-family:'Newsreader',serif; font-size:19px; font-weight:600; color:#fff;">Uyo Business School</span>
+        </div>
+        <p style="font-size:14px; line-height:1.7; margin:18px 0 0; max-width:300px;">One of Nigeria's best business schools — equipping entrepreneurs, professionals and artisans for proficiency and leadership.</p>
+        <div style="font-size:13px; color:#6c779b; margin-top:18px; letter-spacing:.04em;">Excellence in Service</div>
+      </div>
+      <div>
+        <div style="font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#fff; font-weight:700; margin-bottom:16px;">Explore</div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <button onclick="{{ goHome }}" style="background:none; border:none; cursor:pointer; color:#aeb8d4; font-family:'Libre Franklin',sans-serif; font-size:14px; text-align:left; padding:0;">Home</button>
+          <button onclick="{{ goAbout }}" style="background:none; border:none; cursor:pointer; color:#aeb8d4; font-family:'Libre Franklin',sans-serif; font-size:14px; text-align:left; padding:0;">About Us</button>
+          <button onclick="{{ goPrograms }}" style="background:none; border:none; cursor:pointer; color:#aeb8d4; font-family:'Libre Franklin',sans-serif; font-size:14px; text-align:left; padding:0;">Programmes</button>
+          <button onclick="{{ goFaculty }}" style="background:none; border:none; cursor:pointer; color:#aeb8d4; font-family:'Libre Franklin',sans-serif; font-size:14px; text-align:left; padding:0;">Faculty</button>
+          <button onclick="{{ goGallery }}" style="background:none; border:none; cursor:pointer; color:#aeb8d4; font-family:'Libre Franklin',sans-serif; font-size:14px; text-align:left; padding:0;">Gallery</button>
+          <button onclick="{{ goContact }}" style="background:none; border:none; cursor:pointer; color:#aeb8d4; font-family:'Libre Franklin',sans-serif; font-size:14px; text-align:left; padding:0;">Contact</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#fff; font-weight:700; margin-bottom:16px;">Quick Links</div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <a href="https://ubsc.com.ng/faq" target="_blank" rel="noopener" style="color:#aeb8d4; text-decoration:none; font-size:14px;">FAQ</a>
+          <a href="http://elearning.ubsc.com.ng" target="_blank" rel="noopener" style="color:#aeb8d4; text-decoration:none; font-size:14px;">E-Learning</a>
+          <a href="http://jobs.ubsc.com.ng" target="_blank" rel="noopener" style="color:#aeb8d4; text-decoration:none; font-size:14px;">Jobs &amp; Careers</a>
+          <a href="https://www.computermarshal.com/" target="_blank" rel="noopener" style="color:#aeb8d4; text-decoration:none; font-size:14px;">Computer Marshal Exam</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#fff; font-weight:700; margin-bottom:16px;">Contact</div>
+        <p style="font-size:14px; line-height:1.7; margin:0;">No. 10 Aka Nung Oku Road,<br>Uyo, Akwa Ibom State, Nigeria.</p>
+        <p style="font-size:14px; line-height:1.8; margin:12px 0 0;">contact@ubsc.com.ng<br>+234 8131 534 196<br>02085291234</p>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:20px;">
+          <a href="https://www.facebook.com/uyobusinessschools" target="_blank" rel="noopener" aria-label="Uyo Business School on Facebook" style="width:38px; height:38px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); color:#dde3f2; transition:background .2s ease;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@UyoBusinessSchool" target="_blank" rel="noopener" aria-label="Uyo Business School on YouTube" style="width:38px; height:38px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); color:#dde3f2; transition:background .2s ease;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5C0 8.39 0 12 0 12s0 3.61.5 5.5a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51A3.02 3.02 0 0 0 23.5 17.5c.5-1.89.5-5.5.5-5.5s0-3.61-.5-5.5ZM9.6 15.57V8.43L15.82 12 9.6 15.57Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1200px; margin:38px auto 0; padding:22px 28px 0; border-top:1px solid rgba(255,255,255,.08); font-size:13px; color:#6c779b; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+      <span>© {{ year }} Uyo Business School. All rights reserved.</span>
+      <span>Uyo · Akwa Ibom State · Nigeria</span>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP WIDGET -->
+  <div style="position:fixed; right:22px; bottom:22px; z-index:9999; display:flex; flex-direction:column; align-items:flex-end; gap:14px; font-family:'Libre Franklin',sans-serif;">
+    <sc-if value="{{ waOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff; border-radius:16px; box-shadow:0 24px 60px rgba(7,12,30,.28); width:290px; overflow:hidden; border:1px solid rgba(21,34,76,.08);">
+        <div style="background:#15224c; padding:16px 18px; display:flex; align-items:center; gap:12px;">
+          <img src="assets/ubs-logo.jpeg" alt="" style="width:36px; height:36px; border-radius:50%; object-fit:cover; background:#fff;">
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:14.5px;">Uyo Business School</div>
+            <div style="color:#9aa6cc; font-size:12px; margin-top:1px;">Typically replies within a day</div>
+          </div>
+          <button onclick="{{ toggleWa }}" aria-label="Close" style="margin-left:auto; background:none; border:none; color:#cfd6ec; cursor:pointer; font-size:18px; line-height:1; padding:2px;">✕</button>
+        </div>
+        <div style="padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px;">
+          <p style="font-size:13.5px; line-height:1.55; color:#46506f; margin:0 0 4px;">Reach our admissions team directly for programme enquiries or support.</p>
+          <a href="https://wa.me/2348131534196?text=Hello%20Uyo%20Business%20School%2C%20I%27d%20like%20to%20enquire%20about%20your%20programmes." target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; background:#25D366; color:#fff; text-decoration:none; padding:11px 14px; border-radius:10px; font-size:14px; font-weight:700;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.44 5.13L2 22l5.1-1.53a9.87 9.87 0 0 0 4.94 1.32h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.64-1.03-5.13-2.9-6.99A9.82 9.82 0 0 0 12.04 2Zm5.8 14.05c-.24.68-1.4 1.33-1.93 1.42-.5.08-1.03.12-1.66-.1-.38-.13-.87-.3-1.5-.58-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.08-1.44-1.08-2.74 0-1.3.68-1.94.92-2.2.24-.27.53-.33.71-.33.18 0 .35 0 .5.01.16.01.38-.06.6.46.24.55.8 1.98.87 2.13.07.15.11.32.02.5-.53 1.07-1.1 1.03-.77 1.58.94 1.57 1.7 2.11 3.06 2.75.23.1.36.09.5-.05.13-.15.56-.65.7-.87.15-.23.3-.19.5-.11.2.07 1.28.6 1.5.71.22.11.37.16.42.25.06.1.06.55-.18 1.15Z"/></svg>
+            Chat on WhatsApp
+          </a>
+          <a href="tel:+2348131534196" style="display:flex; align-items:center; gap:10px; background:#f2f4fa; color:#15224c; text-decoration:none; padding:11px 14px; border-radius:10px; font-size:14px; font-weight:700; border:1px solid rgba(21,34,76,.1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"/></svg>
+            Call +234 813 153 4196
+          </a>
+        </div>
+      </div>
+    </sc-if>
+    <button onclick="{{ toggleWa }}" aria-label="Chat with us on WhatsApp" style="width:58px; height:58px; border-radius:50%; background:#25D366; border:none; cursor:pointer; box-shadow:0 14px 30px rgba(37,211,102,.4); display:flex; align-items:center; justify-content:center;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.44 5.13L2 22l5.1-1.53a9.87 9.87 0 0 0 4.94 1.32h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.64-1.03-5.13-2.9-6.99A9.82 9.82 0 0 0 12.04 2Zm5.8 14.05c-.24.68-1.4 1.33-1.93 1.42-.5.08-1.03.12-1.66-.1-.38-.13-.87-.3-1.5-.58-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.08-1.44-1.08-2.74 0-1.3.68-1.94.92-2.2.24-.27.53-.33.71-.33.18 0 .35 0 .5.01.16.01.38-.06.6.46.24.55.8 1.98.87 2.13.07.15.11.32.02.5-.53 1.07-1.1 1.03-.77 1.58.94 1.57 1.7 2.11 3.06 2.75.23.1.36.09.5-.05.13-.15.56-.65.7-.87.15-.23.3-.19.5-.11.2.07 1.28.6 1.5.71.22.11.37.16.42.25.06.1.06.55-.18 1.15Z"/></svg>
+    </button>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { page: 'home', mobileOpen: false, sent: false, regSent: false, lightbox: null, waOpen: false };
+
+  go(page) {
+    return () => {
+      this.setState({ page, mobileOpen: false });
+      requestAnimationFrame(() => { try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) { window.scrollTo(0, 0); } });
+    };
+  }
+
+  toggleMenu = () => { this.setState((s) => ({ mobileOpen: !s.mobileOpen })); };
+
+  toggleWa = () => { this.setState((s) => ({ waOpen: !s.waOpen })); };
+
+  // Real lazy-loading: swap data-src -> src as tiles near the viewport, then
+  // prefetch the rest during idle time so nothing ever stays blank.
+  lazyLoad() {
+    const root = (typeof document !== 'undefined') ? document : null;
+    if (!root) return;
+    const pending = [].slice.call(root.querySelectorAll('img[data-lazyimg="1"]')).filter((i) => !i.__lz);
+    if (!pending.length) return;
+    const load = (img) => { if (img.__lz) return; img.__lz = true; const s = img.getAttribute('data-src'); if (s) { img.style.opacity = '0'; img.onload = () => { img.style.opacity = '1'; }; img.src = s; } };
+    if (typeof IntersectionObserver !== 'undefined') {
+      if (this._lio) { try { this._lio.disconnect(); } catch (e) {} }
+      this._lio = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { load(e.target); this._lio.unobserve(e.target); } });
+      }, { rootMargin: '600px 0px' });
+      pending.forEach((i) => this._lio.observe(i));
+    } else {
+      pending.forEach(load);
+    }
+    // idle prefetch of anything still pending (keeps scrolling instant)
+    const prefetch = () => { [].slice.call(root.querySelectorAll('img[data-lazyimg="1"]')).forEach(load); };
+    if (typeof window !== 'undefined' && window.requestIdleCallback) { window.requestIdleCallback(prefetch, { timeout: 4000 }); }
+    else { clearTimeout(this._lzfs); this._lzfs = setTimeout(prefetch, 3000); }
+  }
+
+  // Serialize a form's fields and open the user's email client addressed to the school.
+  mailForm(form, labels, subject) {
+    try {
+      const data = {};
+      Array.from(form.elements).forEach((el) => {
+        if (!el.name) return;
+        if (el.type === 'radio' || el.type === 'checkbox') { if (el.checked) data[el.name] = el.value; }
+        else if (el.value && el.value.trim() !== '') data[el.name] = el.value.trim();
+      });
+      const order = Object.keys(labels);
+      const lines = order.filter((k) => data[k] != null).map((k) => labels[k] + ': ' + data[k]);
+      const body = lines.join('\n') + '\n\n— Sent from the Uyo Business School website';
+      const href = 'mailto:contact@ubsc.com.ng?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      window.location.href = href;
+    } catch (e) {}
+  }
+
+  applySeo() {
+    const map = {
+      home:     ['Uyo Business School | Executive Education, MBA+ & Professional Certifications — Uyo, Nigeria', 'Accredited hybrid business school in Uyo, Nigeria offering MBA+, DBA+, COBEC and CMA+ certifications for entrepreneurs, executives and artisans.'],
+      about:    ['About Uyo Business School | Accredited Business School in Uyo, Nigeria', 'A hybrid institution that trains, examines and certifies entrepreneurs and artisans — applying academic theory to real-life enterprise.'],
+      programs: ['Programmes & Certifications | Uyo Business School', 'Explore MBA+, DBA+, COBEC, CMA+, Professional Diploma and short-course certifications — flexible, hybrid and globally benchmarked.'],
+      faculty:  ['Faculty & Resource Persons | Uyo Business School', 'Meet the practitioners and scholars of Uyo Business School — deep academic credentials paired with real-world enterprise experience.'],
+      contact:  ['Contact Uyo Business School | Admissions & Enquiries, Uyo Nigeria', 'Reach the Uyo Business School admissions team for programme enquiries, partnerships, consultancy or campus visits in Uyo, Akwa Ibom State.'],
+      register: ['Course Registration | Enrol at Uyo Business School', 'Register online for Uyo Business School courses in business, management, digital skills, hospitality, real estate and more. Flexible online or on-campus training in Uyo, Nigeria.'],
+      gallery:  ['Media & Gallery | Uyo Business School', 'Photos from Uyo Business School — convocations, campus life, training sessions and events in Uyo, Akwa Ibom State, Nigeria.'],
+    };
+    const slug = { home:'', about:'about', programs:'programmes', faculty:'faculty', contact:'contact', register:'course-registration', gallery:'gallery' };
+    const entry = map[this.state.page] || map.home;
+    try {
+      document.title = entry[0];
+      let m = document.querySelector('meta[name="description"]');
+      if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); }
+      m.setAttribute('content', entry[1]);
+      // keep canonical + og:url + og:title/description in sync per page
+      const base = 'https://ubsc.com.ng/';
+      const href = base + (slug[this.state.page] || '');
+      const setAttr = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
+      let can = document.querySelector('link[rel="canonical"]');
+      if (!can) { can = document.createElement('link'); can.setAttribute('rel','canonical'); document.head.appendChild(can); }
+      can.setAttribute('href', href);
+      setAttr('meta[property="og:url"]', 'content', href);
+      setAttr('meta[property="og:title"]', 'content', entry[0]);
+      setAttr('meta[property="og:description"]', 'content', entry[1]);
+      setAttr('meta[name="twitter:title"]', 'content', entry[0]);
+      setAttr('meta[name="twitter:description"]', 'content', entry[1]);
+    } catch (e) {}
+  }
+
+  setupReveal() {
+    const root = (typeof document !== 'undefined') ? document : null;
+    if (!root) return;
+    // Scroll-reveal via Web Animations API (fill:forwards ends visible) — never
+    // leaves content stuck hidden, and a failsafe finishes any pending animation.
+    const els = [...root.querySelectorAll('[data-reveal]')];
+    const reveal = (el) => {
+      if (el.__done) return; el.__done = true;
+      if (typeof el.animate !== 'function') return;
+      const a = el.animate(
+        [{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 700, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' }
+      );
+      el.__anim = a;
+    };
+    const vh = window.innerHeight || 800;
+    if (typeof IntersectionObserver !== 'undefined') {
+      if (this._io) { try { this._io.disconnect(); } catch (e) {} }
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { reveal(e.target); this._io.unobserve(e.target); } });
+      }, { threshold: 0.06 });
+      els.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.92) { reveal(el); } else { this._io.observe(el); }
+      });
+    } else {
+      els.forEach(reveal);
+    }
+    // failsafe: guarantee everything is visible shortly after load
+    clearTimeout(this._fs);
+    this._fs = setTimeout(() => {
+      els.forEach((el) => { reveal(el); try { el.__anim && el.__anim.finish(); } catch (e) {} });
+    }, 1800);
+
+    root.querySelectorAll('[data-card]').forEach((c) => {
+      if (c.__hov) return; c.__hov = true;
+      c.addEventListener('mouseenter', () => { c.style.transform = 'translateY(-6px)'; c.style.borderColor = 'rgba(242,201,206,.45)'; });
+      c.addEventListener('mouseleave', () => { c.style.transform = 'none'; c.style.borderColor = 'rgba(255,255,255,.09)'; });
+    });
+
+    root.querySelectorAll('[data-tile] [data-zoom]').forEach((img) => {
+      if (img.__z) return; img.__z = true;
+      const tile = img.closest('[data-tile]');
+      tile.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.06)'; });
+      tile.addEventListener('mouseleave', () => { img.style.transform = 'none'; });
+    });
+  }
+
+  componentDidMount() {
+    this.applySeo();
+    requestAnimationFrame(() => { this.setupReveal(); this.lazyLoad(); });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState || prevState.page !== this.state.page) this.applySeo();
+    requestAnimationFrame(() => { this.setupReveal(); this.lazyLoad(); });
+  }
+
+  renderVals() {
+    const page = this.state.page;
+    const goHome = this.go('home');
+    const goAbout = this.go('about');
+    const goPrograms = this.go('programs');
+    const goFaculty = this.go('faculty');
+    const goContact = this.go('contact');
+    const goRegister = this.go('register');
+    const goGallery = this.go('gallery');
+
+    const navItems = [
+      { label: 'Home', page: 'home', onClick: goHome, active: page === 'home', ariaCurrent: page === 'home' ? 'page' : 'false' },
+      { label: 'About', page: 'about', onClick: goAbout, active: page === 'about', ariaCurrent: page === 'about' ? 'page' : 'false' },
+      { label: 'Programmes', page: 'programs', onClick: goPrograms, active: page === 'programs', ariaCurrent: page === 'programs' ? 'page' : 'false' },
+      { label: 'Faculty', page: 'faculty', onClick: goFaculty, active: page === 'faculty', ariaCurrent: page === 'faculty' ? 'page' : 'false' },
+      { label: 'Gallery', page: 'gallery', onClick: goGallery, active: page === 'gallery', ariaCurrent: page === 'gallery' ? 'page' : 'false' },
+      { label: 'Contact', page: 'contact', onClick: goContact, active: page === 'contact', ariaCurrent: page === 'contact' ? 'page' : 'false' },
+    ];
+
+    const mkClick = (src) => () => this.setState({ lightbox: src });
+    const galleryGroups = [
+      { title: 'Executive Programme Graduation · 2025', note: 'MBA+ executive graduands', items: [
+        { src: 'assets/grad-2025-1.jpg', cap: 'MBA+ graduands in academic regalia', alt: 'Two Uyo Business School MBA+ executive graduands in gown and cap at the 2025 graduation' },
+        { src: 'assets/grad-2025-2.jpg', cap: 'With a special guest', alt: 'UBS MBA+ graduands flanking a special guest at the 2025 Executive Programme graduation' },
+        { src: 'assets/grad-2025-4.jpg', cap: 'Receiving the MBA+ certificate', alt: 'A UBS graduand receiving her MBA+ certificate at the 2025 graduation' },
+        { src: 'assets/grad-2025-5.jpg', cap: 'Faculty & graduands', alt: 'Uyo Business School faculty and MBA+ graduands group photo at the 2025 graduation' },
+      ] },
+      { title: 'Business Sit-Out 2026 · 7th Edition', note: 'Investment Planning in a Changing Economy', items: [
+        { src: 'assets/sitout-2026-1.jpg', cap: 'Guest speakers & the UBS team', alt: 'Guest speakers and the Uyo Business School team at the 7th Business Sit-Out 2026' },
+        { src: 'assets/sitout-2026-7.jpg', cap: 'Group photograph', alt: 'Group photograph of participants at the UBS Business Sit-Out 2026' },
+        { src: 'assets/sitout-2026-4.jpg', cap: 'Panel session', alt: 'Panel session on investment planning at the UBS Business Sit-Out' },
+        { src: 'assets/sitout-2026-3.jpg', cap: 'Certificate presentation', alt: 'Certificate presentation at the UBS Business Sit-Out 2026' },
+        { src: 'assets/sitout-2026-2.jpg', cap: 'Engaged participants', alt: 'Participants seated and listening at the UBS Business Sit-Out 2026' },
+        { src: 'assets/sitout-2026-6.jpg', cap: 'Certificate award', alt: 'A participant receives a certificate at the UBS Business Sit-Out' },
+        { src: 'assets/sitout-2026-5.jpg', cap: 'The UBS team', alt: 'Members of the Uyo Business School team in branded t-shirts' },
+      ] },
+      { title: '2nd Graduation Ceremony · 2023', note: 'MBA+ graduation & induction', items: [
+        { src: 'assets/grad-2023-1.jpg', cap: 'Investiture & oath-taking', alt: 'Uyo Business School graduands taking the oath at the 2023 graduation ceremony' },
+        { src: 'assets/grad-2023-2.jpg', cap: 'Graduands with their certificates', alt: 'Group of UBS MBA+ graduands holding certificates on the steps in 2023' },
+        { src: 'assets/grad-2023-9.jpg', cap: 'Academic procession', alt: 'UBS graduands in academic procession at the 2023 graduation ceremony' },
+        { src: 'assets/grad-2023-7.jpg', cap: 'Address to graduands', alt: 'A UBS graduand addressing the audience at the 2023 graduation ceremony' },
+        { src: 'assets/grad-2023-4.jpg', cap: 'Certificate presentation', alt: 'A UBS graduand congratulated at the 2nd graduation ceremony in 2023' },
+        { src: 'assets/grad-2023-5.jpg', cap: 'Congratulations', alt: 'UBS graduand receiving congratulations wearing an MBA+ sash in 2023' },
+        { src: 'assets/grad-2023-3.jpg', cap: 'Proud graduands', alt: 'Two UBS graduands in academic gowns at the 2023 graduation' },
+        { src: 'assets/grad-2023-10.jpg', cap: 'Celebrating the MBA+', alt: 'Two women celebrating at the UBS 2023 graduation, one wearing an MBA+ sash' },
+        { src: 'assets/grad-2023-8.jpg', cap: 'With guests', alt: 'UBS graduands with a guest at the 2023 graduation ceremony' },
+        { src: 'assets/grad-2023-11.jpg', cap: 'A memorable day', alt: 'A UBS graduand flanked by guests at the 2023 graduation ceremony' },
+        { src: 'assets/grad-2023-6.jpg', cap: 'MBA+ graduand', alt: 'A Uyo Business School MBA+ graduand in regalia at the 2023 ceremony' },
+      ] },
+      { title: '1st Graduation & Induction · 2022', note: 'Artisans & SMBOs · COBEC certification', items: [
+        { src: 'assets/grad-2022-8.jpg', cap: 'Induction of artisans', alt: 'A UBS official presenting a certificate at the 1st Graduation and Induction of Artisans and SMBOs in 2022' },
+        { src: 'assets/grad-2022-1.jpg', cap: 'Graduands at the ceremony', alt: 'Artisan graduands in branded vests and caps seated at the 2022 UBS induction' },
+        { src: 'assets/grad-2022-2.jpg', cap: 'Certificate presentation', alt: 'A UBS official presenting a certificate to a graduand at the 2022 induction' },
+        { src: 'assets/grad-2022-3.jpg', cap: 'A proud moment', alt: 'A female graduand receiving her certificate at the 2022 UBS induction' },
+        { src: 'assets/grad-2022-4.jpg', cap: 'Receiving the award', alt: 'A graduand in gown receiving her certificate from a UBS official in 2022' },
+        { src: 'assets/grad-2022-7.jpg', cap: 'COBEC certificate — cereal making', alt: 'A graduand holding her UBS Competency Based Education Certificate in cereal making' },
+        { src: 'assets/grad-2022-5.jpg', cap: 'Skills in practice — videography', alt: 'A UBS-trained artisan holding a professional Sony video camera' },
+        { src: 'assets/grad-2022-6.jpg', cap: 'Skills in practice — drone operation', alt: 'A UBS-trained artisan in safety gear holding a drone' },
+      ] },
+    ].map((grp, gi) => ({ ...grp, items: grp.items.map((it) => {
+      const eager = gi === 0;
+      const PH = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23e7eaf1%22/></svg>';
+      const st = { width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .5s ease, opacity .4s ease', background: '#e7eaf1' };
+      const props = eager
+        ? { src: it.src, alt: it.alt, 'data-zoom': '1', decoding: 'async', fetchpriority: 'high', style: st }
+        : { src: PH, 'data-src': it.src, 'data-lazyimg': '1', alt: it.alt, 'data-zoom': '1', decoding: 'async', loading: 'lazy', style: st };
+      return { ...it, onClick: mkClick(it.src), img: React.createElement('img', props) };
+    }) }));
+
+    const programs = [
+      { code: 'MBA+', title: 'Master of Business Advancement',
+        blurb: 'A flexible, hybrid programme for executives and entrepreneurs seeking to scale their business or career.',
+        long: 'A flexible, hybrid programme designed for executives, entrepreneurs and professionals seeking to scale their businesses or careers. The MBA+ equips participants with practical leadership, innovation and global business skills tailored to African and emerging markets — benchmarked to the standards of the best business schools worldwide.' },
+      { code: 'DBA+', title: 'Doctor of Business Advancement',
+        blurb: 'Advanced research and practice for senior executives, consultants and strategic thinkers.',
+        long: 'An advanced research and practice-focused programme for senior executives and consultants. The DBA+ develops high-level strategic thinkers who can create impactful solutions, drive innovation and contribute to knowledge in business and economic advancement.' },
+      { code: 'COBEC', title: 'Competency Based Education Certification',
+        blurb: 'Validates practical skills and proficiency across trades and professions for workplace relevance.',
+        long: 'A specialised certification that recognises and validates practical skills, knowledge and proficiency across various trades and professions. COBEC prepares entrepreneurs, artisans and professionals for workplace relevance, ensuring globally competitive standards in competency and manpower development.' },
+      { code: 'CMA+', title: 'Computer Marshal',
+        blurb: 'A practical, industry-ready certification in digital, computing and workplace tech skills.',
+        long: 'Computer Marshal (CMA+) is a practical, industry-ready certification that equips learners with essential digital, computing and workplace tech skills. Designed for beginners and professionals alike, it covers everyday computer operations, office productivity tools, online collaboration and digital problem-solving — preparing participants for modern jobs and business opportunities.' },
+      { code: 'P.Dip', title: 'Professional Diploma',
+        blurb: 'Practical, industry-focused training that upgrades your skills and boosts your career.',
+        long: 'Professional Diploma certifications provide practical, industry-focused training designed to upgrade your skills and boost your career. Each programme equips learners with hands-on knowledge, modern business tools and the competence needed to stand out in today\u2019s competitive marketplace.' },
+      { code: 'SCC', title: 'Short Course Certifications',
+        blurb: 'Flexible, hands-on short courses with recognised certification for immediate impact.',
+        long: 'Practical, industry-focused short courses designed to quickly upgrade your skills and boost your career or business. Each programme is flexible, hands-on and offers recognised certification for immediate impact.' },
+    ];
+
+    const pillars = [
+      { n: '01', title: 'Credibility', body: 'Affiliation with over 75 entrepreneurial firms and vocational institutions safeguarding competency for graduates and artisans alike.' },
+      { n: '02', title: 'Consultancy', body: 'Specialised, real-world solutions for small, medium and large-scale businesses — equipping CEOs, managers and artisans to excel.' },
+      { n: '03', title: 'Certification', body: 'Government-recognised certification through accredited partners across COBEC, P.Dip, CMA+ and the MBA+.' },
+    ];
+
+    const credibility = [
+      { title: 'Over 75 affiliations', body: 'Partnerships with entrepreneurial firms and vocationally inclined private institutions that safeguard competency for our graduates and artisans.' },
+      { title: 'Consultancy services', body: 'A wide range of professionalised solutions to problems faced by small, medium and large-scale businesses and corporate establishments.' },
+      { title: 'Recognised certification', body: 'Coordinated and certified through recognised government institutions and accreditation bodies.' },
+    ];
+
+    const accreditors = ['Computer Marshal', 'Ministry of Education', 'Fed. Ministry of Trade & Industry'];
+
+    const faculty = [
+      { name: 'Amb. Iboro Archibong Williams', creds: 'Alumnus, Harvard Business School · MA (USA), MPA, B.Sc',
+        focus: 'Entrepreneurship Development, Human Resources Management and Business Management.',
+        img: 'https://ubsc.com.ng/wp-content/uploads/2025/10/AMB.IBOROARCHIBONG-WILLIAMS.png' },
+      { name: 'Dr. Imo U. Johnson', creds: 'PhD Rural Geography · M.Sc, PGD',
+        focus: 'Environmental & Resource Management and Business Administration, with an MSc in Environmental & Resources Management (Uyo).',
+        img: 'https://ubsc.com.ng/wp-content/uploads/2025/10/DR.-IMO-U.-JOHNSON.png' },
+      { name: 'Barr. B. Bassey Ekpa', creds: 'LLB, LLM · Chartered Mediator & Conciliator',
+        focus: 'Litigation, corporate, commercial and intellectual-property law, civil & criminal law and assets & properties management. An ICT expert and project manager.',
+        img: 'https://ubsc.com.ng/wp-content/uploads/2025/10/p9.png' },
+      { name: 'Dr. Anietie Ekpenyong', creds: 'PhD Environment & Development · MIPDM, ACIPA, IPAN',
+        focus: 'Development planning and public administration; a writer, publisher and researcher whose work has contributed to national social and economic development.',
+        img: 'https://ubsc.com.ng/wp-content/uploads/2025/10/dr-1-1-267x300.jpg' },
+      { name: 'Lady Blessing Akpan', creds: 'Executive Secretary · M.Sc, PGD, B.A',
+        focus: 'Business Communications and Administration, with extensive training in Hotels and Hospitality Management.',
+        img: 'https://ubsc.com.ng/wp-content/uploads/2025/10/Lady-Blessing-Akpan--300x300.jpg' },
+      { name: 'Ms. Patience Onyejiuwa', creds: 'Administrative Secretary',
+        focus: 'Coordinates administrative operations and candidate support across the school.',
+        img: 'https://ubsc.com.ng/wp-content/uploads/2025/12/sec-214x300-1.jpg' },
+    ];
+
+    return {
+      page,
+      isHome: page === 'home',
+      isAbout: page === 'about',
+      isPrograms: page === 'programs',
+      isFaculty: page === 'faculty',
+      isContact: page === 'contact',
+      isRegister: page === 'register',
+      isGallery: page === 'gallery',
+      regSent: this.state.regSent,
+      regNotSent: !this.state.regSent,
+      goHome, goAbout, goPrograms, goFaculty, goContact, goRegister, goGallery,
+      navItems, programs, pillars, credibility, accreditors, faculty, galleryGroups,
+      lightbox: this.state.lightbox,
+      hasLightbox: !!this.state.lightbox,
+      lightboxImg: this.state.lightbox ? React.createElement('img', { src: this.state.lightbox, alt: 'Expanded gallery image', style: { maxWidth: '92vw', maxHeight: '88vh', borderRadius: '12px', boxShadow: '0 40px 90px rgba(0,0,0,.5)' } }) : null,
+      closeLightbox: () => this.setState({ lightbox: null }),
+      sent: this.state.sent,
+      isTrue: true,
+      mobileOpen: this.state.mobileOpen,
+      menuClosed: !this.state.mobileOpen,
+      toggleMenu: this.toggleMenu,
+      waOpen: this.state.waOpen,
+      toggleWa: this.toggleWa,
+      onSubmit: (e) => {
+        e.preventDefault();
+        this.mailForm(e.target, { name:'Full Name', email:'Email', phone:'Phone', programme:'Programme of Interest', message:'Message' }, 'Website Enquiry — Uyo Business School');
+        this.setState({ sent: true });
+      },
+      onRegSubmit: (e) => {
+        e.preventDefault();
+        this.mailForm(e.target, { fullName:'Full Name', dob:'Date of Birth', email:'Email', phone:'Phone', whatsapp:'WhatsApp', gender:'Gender', address:'Residential Address', course:'Preferred Course', courseOther:'Other Course', mode:'Mode of Training', schedule:'Training Schedule', qualification:'Highest Qualification', occupation:'Current Occupation', experience:'Work Experience', emName:'Emergency Contact Name', emRelationship:'Relationship', emPhone:'Emergency Phone' }, 'Course Registration — Uyo Business School');
+        this.setState({ regSent: true });
+        requestAnimationFrame(() => { try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (err) { window.scrollTo(0, 0); } });
+      },
+      year: new Date().getFullYear(),
+    };
+  }
+}
+</script>
+
+
+</body></html>
